@@ -4,7 +4,7 @@
 #include<SFML/Window.hpp>
 #include<cstdlib>
 #include<vector>
-//#include	"menu.h"
+#include	"menu.h"
 #include "ExitScreen.h"
 
 using namespace sf;
