@@ -5,6 +5,8 @@
 #include<cstdlib>
 #include<vector>
 
+#include "ExitScreen.h"
+
 using namespace sf;
 
 const Vector2f windowsize(800, 600);
@@ -49,7 +51,7 @@ public:
 	{
 		this->sprite.setTexture(*tex);
 		this->sprite.setScale(1.f, 1.f);
-		this->sprite.setPosition(rand() % (int)(windowsize.x - this->sprite.getGlobalBounds().width - 125 - this->sprite.getGlobalBounds().width) + 127, 0.f);
+		this->sprite.setPosition(rand() % 500+125, 0.f);
 		std::cout << "Enemycar spawned" << std::endl;
 	}
 };
@@ -109,7 +111,8 @@ int main()
 	//font and text
 	Font font;
 	Text text;
-	font.loadFromFile("Fonts/theloccosta.ttf");
+	if(font.loadFromFile("Fonts/JungleAdventurer.ttf")== NULL)
+		std::cout<<"Font not found";
 	text.setFont(font);
 	text.setString("Life Damage");
 	text.setCharacterSize(50);
@@ -117,7 +120,7 @@ int main()
 
 	Text secondss;
 	secondss.setFont(font);
-	secondss.setCharacterSize(50);
+	secondss.setCharacterSize(30);
 	secondss.setPosition(10.f, 10.f);
 
 	int collided = 0;
@@ -140,6 +143,17 @@ int main()
 
 	std::vector<Enemycar> enemycars;
 
+	//UI
+	Menu menu;
+
+	RectangleShape hpbar, hpbarout;
+	hpbarout.setOutlineThickness(2);
+	hpbarout.setOutlineColor(Color::White);
+	hpbar.setPosition(595.f,10.f);
+	hpbarout.setPosition(hpbar.getPosition());
+	hpbar.setFillColor(Color::Red);
+	hpbarout.setSize(Vector2f(20.f * player.HP, 10.f));
+
 	//std::vector<pithole> pitholes;
 
 	while (window.isOpen())
@@ -152,6 +166,21 @@ int main()
 			if (event.KeyPressed && event.key.code == Keyboard::Escape)
 				window.close();
 		}
+
+		//UI
+			//retry button press
+		if (menu.RetryMouseHover(window) == true) {
+			if (Mouse::isButtonPressed(Mouse::Left))
+				player.HP = 10;
+		}
+
+		//exit button press
+		if (menu.ExitMouseHover(window) == true) {
+			if (Mouse::isButtonPressed(Mouse::Left))
+				window.close();
+		}
+		hpbar.setSize(Vector2f(20.f * player.HP, 10.f));
+
 		if (player.HP > 0)
 		{
 			//game completion check
@@ -160,10 +189,10 @@ int main()
 				gamecomplete = true;
 				std::cout << "Game complete" << std::endl;
 			}
-			score = (int)(time.getElapsedTime().asSeconds());
-			scored = std::to_string(score);
-			std::cout << scored << std::endl;
-			secondss.setString("Score: " + scored);
+			score = int(time.getElapsedTime().asSeconds());
+			//std::cout << score << std::endl;
+			secondss.setFillColor(Color::Red);
+			secondss.setString("Score: " + std::to_string(score));
 			//player update
 			if (Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left))
 			{
@@ -259,6 +288,7 @@ int main()
 					break;
 				}
 			}*/
+		}
 			//draw
 			window.clear();
 			window.draw(background);
@@ -302,12 +332,12 @@ int main()
 					//window.draw(pitholes[i].sprite);
 				//}
 			}
-		}
-		else
-		{
-			std::cout << "Game Over" << std::endl;
-			window.draw(text);
-		}
+		if(player.HP <=0)
+			menu.drawTo(window);		
+
+		window.draw(hpbarout);
+		window.draw(hpbar);
+
 		window.display();
 	}
 	return 0;
