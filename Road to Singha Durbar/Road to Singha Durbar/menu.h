@@ -46,9 +46,9 @@ public:
 	{
 		text.setFont(font);
 		text.setCharacterSize(35);
-		text.setPosition(sf::Vector2f(175.f, 125.f));
+		text.setPosition(sf::Vector2f(225.f, 125.f));
 		text.setStyle(sf::Text::Bold);
-		text.setString("ROAD TO SINGHADURBAR");
+		text.setString("ROAD TO SINGHA DURBAR");
 		text.setFillColor(color);
 
 	}

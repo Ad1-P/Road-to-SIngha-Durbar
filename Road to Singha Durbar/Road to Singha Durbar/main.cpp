@@ -4,7 +4,7 @@
 #include<SFML/Window.hpp>
 #include<cstdlib>
 #include<vector>
-#include	"menu.h"
+#include "menu.h"
 #include "ExitScreen.h"
 
 using namespace sf;
@@ -144,7 +144,7 @@ int main()
 	std::vector<Enemycar> enemycars;
 
 	//UI
-	Menu menu;
+	Menu ExMenu;
 
 	RectangleShape hpbar, hpbarout;
 	hpbarout.setOutlineThickness(2);
@@ -153,6 +153,21 @@ int main()
 	hpbarout.setPosition(hpbar.getPosition());
 	hpbar.setFillColor(Color::Red);
 	hpbarout.setSize(Vector2f(20.f * player.HP, 10.f));
+
+	// Main Menu
+	menu menu1(Color::Black, Color::Transparent);
+	Texture menuBg;
+	if (menuBg.loadFromFile("textures/singhadurbar.png") == NULL)
+		std::cout << "Texture not found";
+	menu1.loadtex1(menuBg);
+	menu1.tecst(font, Color::Red);
+	Texture play;
+	if (play.loadFromFile("textures/button.png") == NULL)
+		std::cout << "Texture not found";
+	menu1.loadtex2(play, window);
+
+	//management
+	bool Run=false;
 
 	//std::vector<pithole> pitholes;
 
@@ -165,23 +180,39 @@ int main()
 				window.close();
 			if (event.KeyPressed && event.key.code == Keyboard::Escape)
 				window.close();
+			if (event.type == sf::Event::MouseMoved)
+			{
+				if (menu1.ismouseover(window))
+					menu1.changebg(sf::Color::White);
+				else
+					menu1.changebg(sf::Color::Black);
+			}
+			if (menu1.ismousepressed(window))
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+					Run = true;
+			}
 		}
 
 		//UI
 			//retry button press
-		if (menu.RetryMouseHover(window) == true) {
-			if (Mouse::isButtonPressed(Mouse::Left))
+		if (ExMenu.RetryMouseHover(window) == true) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
 				player.HP = 10;
+				time.restart();
+				speed = 3.0f;
+				enemycars.clear();
+			}
 		}
 
 		//exit button press
-		if (menu.ExitMouseHover(window) == true) {
+		if (ExMenu.ExitMouseHover(window) == true) {
 			if (Mouse::isButtonPressed(Mouse::Left))
 				window.close();
 		}
 		hpbar.setSize(Vector2f(20.f * player.HP, 10.f));
 
-		if (player.HP > 0)
+		if (player.HP > 0 && Run)
 		{
 			//game completion check
 			if (time.getElapsedTime().asSeconds() >= 69)
@@ -333,10 +364,15 @@ int main()
 				//}
 			}
 		if(player.HP <=0)
-			menu.drawTo(window);		
+			ExMenu.drawTo(window);		
 
 		window.draw(hpbarout);
 		window.draw(hpbar);
+
+		if (Run == false)
+			menu1.drawto(window);
+		else
+			Run = true;
 
 		window.display();
 	}
