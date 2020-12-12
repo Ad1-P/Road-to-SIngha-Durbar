@@ -23,5 +23,8 @@
     <ClInclude Include="ExitScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\Desktop\sfmllink\ConsoleApplication1\ConsoleApplication1\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

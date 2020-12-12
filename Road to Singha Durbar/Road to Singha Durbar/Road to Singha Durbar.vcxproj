@@ -22,6 +22,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\Desktop\sfmllink\ConsoleApplication1\ConsoleApplication1\menu.h" />
     <ClInclude Include="ExitScreen.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
