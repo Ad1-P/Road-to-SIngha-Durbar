@@ -56,22 +56,14 @@ public:
 	}
 };
 
-class pithole : public Entity
-{
-public:
-	pithole(Texture* tex)
-	{
-		this->sprite.setTexture(*tex);
-		this->sprite.setPosition(rand() % (int)(windowsize.x - this->sprite.getGlobalBounds().width - 125) + 127, 0.f);
-		this->sprite.setScale(0.1f, 0.1f);
-		std::cout << "pithole generated" << std::endl;
-	}
-};
-
 int main()
 {
+	//window seetings
 	srand(time(NULL));
-	RenderWindow window(VideoMode(windowsize.x, windowsize.y), "TRY");
+	RenderWindow window(VideoMode(windowsize.x, windowsize.y), "ROAD TO SINGHA DURBAR");
+	Image icon;
+	icon.loadFromFile("textures/icon.png");
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	window.setFramerateLimit(60);
 
 	//boolean
@@ -266,14 +258,6 @@ int main()
 					enemycars.push_back(Enemycar(&enemycar_texture));
 					enemyspawntimer = 0;
 				}
-				// pithole update
-				/*if (pithole_spawntimer < 200)
-					pithole_spawntimer++;
-				if (pithole_spawntimer >= 200)
-				{
-					pitholes.push_back(pithole(&pithole_texture));
-					pithole_spawntimer = 0;
-				}*/
 			}
 			//collision with player and enemy
 			for (size_t i = 0; i < enemycars.size(); i++)
@@ -298,27 +282,6 @@ int main()
 					break;
 				}
 			}
-			/*//collision with player and pithole
-			for (size_t i = 0; i < pitholes.size(); i++)
-			{
-				pitholes[i].sprite.move(0.f, 1.f);
-				if (pitholes[i].sprite.getPosition().y > window.getSize().y)
-				{
-					pitholes.erase(pitholes.begin() + i);
-					std::cout << "pithole out of bound" << std::endl;
-					break;
-				}
-				if (pitholes[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
-				{
-					colision_sound.play();
-					std::cout << "collison sound playing" << std::endl;
-					pitholes.erase(pitholes.begin() + i);
-					std::cout << "pihole collided with player" << std::endl;
-					player.HP -= 4;
-					std::cout << "player HP:" << player.HP << std::endl;
-					break;
-				}
-			}*/
 		}
 			//draw
 			window.clear();
@@ -358,10 +321,6 @@ int main()
 					window.draw(enemycars[i].sprite);
 				}
 				window.draw(secondss);
-				//for (size_t i = 0; i < pitholes.size(); i++)
-				//{
-					//window.draw(pitholes[i].sprite);
-				//}
 			}
 		if(player.HP <=0)
 			ExMenu.drawTo(window);		

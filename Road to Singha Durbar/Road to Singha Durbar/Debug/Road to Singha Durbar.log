@@ -1,37 +1,36 @@
 ﻿  main.cpp
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(64,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(64,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(65,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(65,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(81,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(81,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(82,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\menu.h(82,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\ExitScreen.h(66,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\ExitScreen.h(72,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(54,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(65,102): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(73,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(74,56): warning C4244: 'argument': conversion from 'const T' to 'unsigned int', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\ExitScreen.h(66,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\ExitScreen.h(72,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(54,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(62,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(63,56): warning C4244: 'argument': conversion from 'const T' to 'unsigned int', possible loss of data
           with
           [
               T=float
           ]
-E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(74,42): warning C4244: 'argument': conversion from 'const T' to 'unsigned int', possible loss of data
+C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Road to Singha Durbar\main.cpp(63,42): warning C4244: 'argument': conversion from 'const T' to 'unsigned int', possible loss of data
           with
           [
               T=float
           ]
-  Road to Singha Durbar.vcxproj -> E:\PROGRAMMING\Road-to-SIngha-Durbar\Road to Singha Durbar\Debug\Road to Singha Durbar.exe
+  Road to Singha Durbar.vcxproj -> C:\Users\User\Desktop\Project c++\Road-to-SIngha-Durbar\Road to Singha Durbar\Debug\Road to Singha Durbar.exe
