@@ -118,35 +118,30 @@ int main()
 	text.setFont(font);
 	text.setString("Game Completed");
 	text.setCharacterSize(50);
-	text.setPosition(windowsize.x / 2 - 20, windowsize.y / 2 - 10);
+	text.setPosition(windowsize.x / 2 - 30, windowsize.y / 2 - 10);
 
 	Text secondss;
 	secondss.setFont(font);
 	secondss.setCharacterSize(30);
 	secondss.setPosition(10.f, 10.f);
 
+	//for collision
 	bool collided = false;
-
 	int count = 0;
 
+	//ending frames count
 	int ending_frames = 0;
-
-	int score = 0;
-
 	int range = 1;
 
+	//score
+	int score = 0;
 	std::string scored;
 
+	//enemyspawntimer and speed of enemy
 	int enemyspawntimer = 0;
-
-	int pithole_spawntimer = 0;
-
-	int line_generator = 0;
-
 	float speed = 3.0f;
 
 	Player player;
-
 	std::vector<Enemycar> enemycars;
 
 	//UI
@@ -175,7 +170,6 @@ int main()
 	//management
 	bool Run = false;
 
-	//std::vector<pithole> pitholes;
 
 	while (window.isOpen())
 	{
@@ -196,7 +190,11 @@ int main()
 			if (menu1.ismousepressed(window))
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
+				{
 					Run = true;
+					time.restart();
+					speed_clock.restart();
+				}
 			}
 		}
 
@@ -208,6 +206,7 @@ int main()
 				range = 1;
 				player.HP = 10;
 				time.restart();
+				speed_clock.restart();
 				speed = 3.0f;
 				enemycars.clear();
 			}
@@ -229,7 +228,6 @@ int main()
 				std::cout << "Game complete" << std::endl;
 			}
 			score = int(time.getElapsedTime().asSeconds());
-			//std::cout << score << std::endl;
 			secondss.setFillColor(Color::Red);
 			secondss.setString("Score: " + std::to_string(score));
 			//player update
@@ -343,8 +341,9 @@ int main()
 		if (gamecomplete)
 		{
 			window.clear();
-			if (ending_frames < 200)
+			if (ending_frames < 100)
 			{
+				window.draw(background);
 				window.draw(text);
 				ending_frames++;
 			}
