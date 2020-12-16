@@ -16,16 +16,15 @@ class Entity
 public:
 	Sprite sprite;
 	Texture texture;
+	int HP;
+	virtual int get_HP() = 0;
 };
 
 class Player :public Entity
 {
-public:
-	int HP;
 	int HPmax;
-
-	RectangleShape rect;
-
+public:	
+	int HP;
 	Player()
 	{
 		this->HPmax = 10;
@@ -36,6 +35,10 @@ public:
 		this->sprite.setScale(1.5f, 1.5f);
 		this->sprite.setPosition(windowsize.x / static_cast<float>(2) - sprite.getGlobalBounds().width, windowsize.y - 10 - sprite.getGlobalBounds().height);
 		std::cout << "Loaded player" << std::endl;
+	}
+	int get_HP()
+	{
+		return HP;
 	}
 	~Player()
 	{
@@ -53,6 +56,10 @@ public:
 		this->sprite.setScale(1.f, 1.f);
 		this->sprite.setPosition(rand() % 500 + 125, 0.f);
 		std::cout << "Enemycar spawned" << std::endl;
+	}
+	int get_HP()
+	{
+		return HP;
 	}
 };
 
