@@ -51,7 +51,7 @@ public:
 	{
 		this->sprite.setTexture(*tex);
 		this->sprite.setScale(1.f, 1.f);
-		this->sprite.setPosition(rand() % 500+125, 0.f);
+		this->sprite.setPosition(rand() % 500 + 125, 0.f);
 		std::cout << "Enemycar spawned" << std::endl;
 	}
 };
@@ -79,13 +79,16 @@ int main()
 	Sound colision_sound;
 	colision_sound.setBuffer(colllison);
 
+	//game comletion sound
+	SoundBuffer completed;
+	completed.loadFromFile("sounds/nepalihoni.wav");
+	Sound nepalihoni;
+	nepalihoni.setBuffer(completed);
+
 	//enemycar texture
 	Texture enemycar_texture;
 	enemycar_texture.loadFromFile("textures/enemycar.png");
 
-	//pithole texture
-	Texture pithole_texture;
-	pithole_texture.loadFromFile("textures/crack_hole.png");
 
 	//background
 	Sprite background;
@@ -93,6 +96,13 @@ int main()
 	background_texture.loadFromFile("textures/background-1.png");
 	background.setTexture(background_texture);
 	background.setScale(1.65f, 1.65f);
+
+	//game completion bg
+	Sprite kpoli;
+	Texture kplolitex;
+	kplolitex.loadFromFile("textures/kpoli.jpeg");
+	kpoli.setTexture(kplolitex);
+	kpoli.setScale(0.89f, 1.f);
 
 	//collision animation
 	Sprite collisionsp;
@@ -103,10 +113,10 @@ int main()
 	//font and text
 	Font font;
 	Text text;
-	if(font.loadFromFile("Fonts/JungleAdventurer.ttf")== NULL)
-		std::cout<<"Font not found";
+	if (font.loadFromFile("Fonts/JungleAdventurer.ttf") == NULL)
+		std::cout << "Font not found";
 	text.setFont(font);
-	text.setString("Life Damage");
+	text.setString("Game Completed");
 	text.setCharacterSize(50);
 	text.setPosition(windowsize.x / 2 - 20, windowsize.y / 2 - 10);
 
@@ -115,11 +125,15 @@ int main()
 	secondss.setCharacterSize(30);
 	secondss.setPosition(10.f, 10.f);
 
-	int collided = 0;
+	bool collided = false;
 
 	int count = 0;
 
+	int ending_frames = 0;
+
 	int score = 0;
+
+	int range = 1;
 
 	std::string scored;
 
@@ -141,7 +155,7 @@ int main()
 	RectangleShape hpbar, hpbarout;
 	hpbarout.setOutlineThickness(2);
 	hpbarout.setOutlineColor(Color::White);
-	hpbar.setPosition(595.f,10.f);
+	hpbar.setPosition(595.f, 10.f);
 	hpbarout.setPosition(hpbar.getPosition());
 	hpbar.setFillColor(Color::Red);
 	hpbarout.setSize(Vector2f(20.f * player.HP, 10.f));
@@ -159,7 +173,7 @@ int main()
 	menu1.loadtex2(play, window);
 
 	//management
-	bool Run=false;
+	bool Run = false;
 
 	//std::vector<pithole> pitholes;
 
@@ -190,6 +204,8 @@ int main()
 			//retry button press
 		if (ExMenu.RetryMouseHover(window) == true) {
 			if (Mouse::isButtonPressed(Mouse::Left)) {
+				gamecomplete = false;
+				range = 1;
 				player.HP = 10;
 				time.restart();
 				speed = 3.0f;
@@ -204,7 +220,7 @@ int main()
 		}
 		hpbar.setSize(Vector2f(20.f * player.HP, 10.f));
 
-		if (player.HP > 0 && Run)
+		if (player.HP > 0 && Run && !gamecomplete)
 		{
 			//game completion check
 			if (time.getElapsedTime().asSeconds() >= 69)
@@ -271,7 +287,7 @@ int main()
 				}
 				if (enemycars[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
 				{
-					collided = 1;
+					collided = true;
 					colision_sound.play();
 					std::cout << "collison sound playing" << std::endl;
 					collisionsp.setPosition(enemycars[i].sprite.getPosition().x, enemycars[i].sprite.getPosition().y);
@@ -283,50 +299,75 @@ int main()
 				}
 			}
 		}
-			//draw
-			window.clear();
-			window.draw(background);
-			window.draw(player.sprite);
-			if (!gamecomplete)
+		//draw
+		window.clear();
+		window.draw(background);
+		window.draw(player.sprite);
+		if (!gamecomplete)
+		{
+			if (collided)
 			{
-				if (collided == 1)
+				if (count == 0)
+					collisionsp.setTextureRect(IntRect(0, 0, 120, 120));
+				if (count == 1)
+					collisionsp.setTextureRect(IntRect(120, 0, 120, 120));
+				if (count == 2)
+					collisionsp.setTextureRect(IntRect(120 * 2, 0, 120, 120));
+				if (count == 3)
+					collisionsp.setTextureRect(IntRect(120 * 3, 0, 120, 120));
+				if (count == 4)
+					collisionsp.setTextureRect(IntRect(0, 120, 120, 120));
+				if (count == 5)
+					collisionsp.setTextureRect(IntRect(120, 120, 120, 120));
+				if (count == 6)
+					collisionsp.setTextureRect(IntRect(120 * 2, 120, 120, 120));
+				if (count == 7)
+					collisionsp.setTextureRect(IntRect(120 * 3, 120, 120, 120));
+				if (count == 8)
 				{
-					if (count == 0)
-						collisionsp.setTextureRect(IntRect(0, 0, 120, 120));
-					if (count == 1)
-						collisionsp.setTextureRect(IntRect(120, 0, 120, 120));
-					if (count == 2)
-						collisionsp.setTextureRect(IntRect(120 * 2, 0, 120, 120));
-					if (count == 3)
-						collisionsp.setTextureRect(IntRect(120 * 3, 0, 120, 120));
-					if (count == 4)
-						collisionsp.setTextureRect(IntRect(0, 120, 120, 120));
-					if (count == 5)
-						collisionsp.setTextureRect(IntRect(120, 120, 120, 120));
-					if (count == 6)
-						collisionsp.setTextureRect(IntRect(120 * 2, 120, 120, 120));
-					if (count == 7)
-						collisionsp.setTextureRect(IntRect(120 * 3, 120, 120, 120));
-					if (count == 8)
-					{
-						collisionsp.setTextureRect(IntRect(0, 240, 120, 120));
-						collided = 0;
-						count = 0;
-					}
-					count++;
-					window.draw(collisionsp);
+					collisionsp.setTextureRect(IntRect(0, 240, 120, 120));
+					collided = false;
+					count = 0;
 				}
-				for (size_t i = 0; i < enemycars.size(); i++)
-				{
-					window.draw(enemycars[i].sprite);
-				}
-				window.draw(secondss);
+				count++;
+				window.draw(collisionsp);
 			}
-		if(player.HP <=0)
-			ExMenu.drawTo(window);		
+			for (size_t i = 0; i < enemycars.size(); i++)
+			{
+				window.draw(enemycars[i].sprite);
+			}
+			window.draw(secondss);
+			window.draw(hpbarout);
+			window.draw(hpbar);
+		}
+		if (gamecomplete)
+		{
+			window.clear();
+			if (ending_frames < 200)
+			{
+				window.draw(text);
+				ending_frames++;
+			}
 
-		window.draw(hpbarout);
-		window.draw(hpbar);
+			else
+			{
+				if (range == 1)
+				{
+					nepalihoni.play();
+				}
+				range = 0;
+				if (nepalihoni.getStatus() == Sound::Playing)
+					window.draw(kpoli);
+				if (nepalihoni.getStatus() == Sound::Stopped)
+				{
+					window.draw(background);
+					ExMenu.drawTo(window);
+				}
+			}
+		}
+		if (player.HP <= 0)
+			ExMenu.drawTo(window);
+
 
 		if (Run == false)
 			menu1.drawto(window);
