@@ -16,26 +16,29 @@ class Entity
 public:
 	Sprite sprite;
 	Texture texture;
+	int HP;
+	virtual int get_HP() = 0;
 };
 
 class Player :public Entity
 {
-public:
-	int HP;
 	int HPmax;
-
-	RectangleShape rect;
-
+public:	
+	int HP;
 	Player()
 	{
 		this->HPmax = 10;
 		this->HP = this->HPmax;
-		this->texture.loadFromFile("textures/cartop.png");
+		this->texture.loadFromFile("textures/car.png");
 		this->sprite.setTexture(texture);
 		//this->sprite.rotate(90.f);
 		this->sprite.setScale(1.5f, 1.5f);
 		this->sprite.setPosition(windowsize.x / static_cast<float>(2) - sprite.getGlobalBounds().width, windowsize.y - 10 - sprite.getGlobalBounds().height);
 		std::cout << "Loaded player" << std::endl;
+	}
+	int get_HP()
+	{
+		return HP;
 	}
 	~Player()
 	{
@@ -50,9 +53,13 @@ public:
 	Enemycar(Texture* tex)
 	{
 		this->sprite.setTexture(*tex);
-		this->sprite.setScale(1.f, 1.f);
+		this->sprite.setScale(1.2f, 1.2f);
 		this->sprite.setPosition(rand() % 500 + 125, 0.f);
 		std::cout << "Enemycar spawned" << std::endl;
+	}
+	int get_HP()
+	{
+		return HP;
 	}
 };
 
@@ -81,13 +88,22 @@ int main()
 
 	//game comletion sound
 	SoundBuffer completed;
-	completed.loadFromFile("sounds/nepalihoni.wav");
+	completed.loadFromFile("sounds/nepalihoniremix.wav");
 	Sound nepalihoni;
 	nepalihoni.setBuffer(completed);
 
 	//enemycar texture
-	Texture enemycar_texture;
-	enemycar_texture.loadFromFile("textures/enemycar.png");
+	Texture enemycar1_texture;
+	enemycar1_texture.loadFromFile("textures/car_2.png");
+
+	Texture enemycar2_texture;
+	enemycar2_texture.loadFromFile("textures/car_3.png");
+
+	Texture enemycar3_texture;
+	enemycar3_texture.loadFromFile("textures/car_4.png");
+
+	Texture enemycar4_texture;
+	enemycar4_texture.loadFromFile("textures/car_5.png");
 
 
 	//background
@@ -138,6 +154,7 @@ int main()
 	std::string scored;
 
 	//enemyspawntimer and speed of enemy
+	int enemytype = 0;
 	int enemyspawntimer = 0;
 	float speed = 3.0f;
 
@@ -265,11 +282,27 @@ int main()
 				}
 
 				//enmeycar update
-				if (enemyspawntimer < 50)
+				if (enemyspawntimer < 80)
 					enemyspawntimer++;
-				if (enemyspawntimer >= 50)
+				if (enemyspawntimer >= 80)
 				{
-					enemycars.push_back(Enemycar(&enemycar_texture));
+					enemytype = rand() % 4;
+					if (enemytype == 0)
+					{
+						enemycars.push_back(Enemycar(&enemycar1_texture));
+					}
+					if (enemytype == 1)
+					{
+						enemycars.push_back(Enemycar(&enemycar2_texture));
+					}
+					if (enemytype == 2)
+					{
+						enemycars.push_back(Enemycar(&enemycar3_texture));
+					}
+					if (enemytype == 3)
+					{
+						enemycars.push_back(Enemycar(&enemycar4_texture));
+					}
 					enemyspawntimer = 0;
 				}
 			}
