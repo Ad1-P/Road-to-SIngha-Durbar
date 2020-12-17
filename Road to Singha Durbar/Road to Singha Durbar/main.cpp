@@ -29,7 +29,7 @@ public:
 	{
 		this->HPmax = 10;
 		this->HP = this->HPmax;
-		this->texture.loadFromFile("textures/car.png");
+		this->texture.loadFromFile("textures/cartop.png");
 		this->sprite.setTexture(texture);
 		//this->sprite.rotate(90.f);
 		this->sprite.setScale(1.5f, 1.5f);
