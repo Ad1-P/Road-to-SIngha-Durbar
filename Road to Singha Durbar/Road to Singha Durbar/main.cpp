@@ -16,8 +16,7 @@ class Entity
 public:
 	Sprite sprite;
 	Texture texture;
-	int HP;
-	virtual int get_HP() = 0;
+	virtual void get_position() = 0;
 };
 
 class Player :public Entity
@@ -31,14 +30,13 @@ public:
 		this->HP = this->HPmax;
 		this->texture.loadFromFile("textures/cartop.png");
 		this->sprite.setTexture(texture);
-		//this->sprite.rotate(90.f);
 		this->sprite.setScale(1.5f, 1.5f);
 		this->sprite.setPosition(windowsize.x / static_cast<float>(2) - sprite.getGlobalBounds().width, windowsize.y - 10 - sprite.getGlobalBounds().height);
 		std::cout << "Loaded player" << std::endl;
 	}
-	int get_HP()
+	void get_position()
 	{
-		return HP;
+		std::cout << sprite.getPosition().x << " " << sprite.getPosition().y << std::endl;
 	}
 	~Player()
 	{
@@ -53,13 +51,17 @@ public:
 	Enemycar(Texture* tex)
 	{
 		this->sprite.setTexture(*tex);
-		this->sprite.setScale(1.2f, 1.2f);
+		this->sprite.setScale(1.1f, 1.1f);
 		this->sprite.setPosition(rand() % 500 + 125, 0.f);
 		std::cout << "Enemycar spawned" << std::endl;
 	}
-	int get_HP()
+	void get_position()
 	{
-		return HP;
+		std::cout << sprite.getPosition().x << " " << sprite.getPosition().y << std::endl;
+	}
+	~Enemycar()
+	{
+		std::cout << "Deleted enemycar" << std::endl;
 	}
 };
 
@@ -67,7 +69,7 @@ int main()
 {
 	//window seetings
 	srand(time(NULL));
-	RenderWindow window(VideoMode(windowsize.x, windowsize.y), "ROAD TO SINGHA DURBAR");
+	RenderWindow window(VideoMode(windowsize.x, windowsize.y), "ROAD TO SINGHA DURBAR", Style::Titlebar|Style::Close);
 	Image icon;
 	icon.loadFromFile("textures/icon.png");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -151,7 +153,7 @@ int main()
 
 	//score
 	int score = 0;
-	std::string scored;
+	//std::string scored;
 
 	//enemyspawntimer and speed of enemy
 	int enemytype = 0;
@@ -258,7 +260,7 @@ int main()
 				player.sprite.move(5.0f, 0);
 				std::cout << "moved right" << std::endl;
 			}
-			//player collision with window
+			//player collision with road
 			if (player.sprite.getPosition().x <= 127)
 			{
 				player.sprite.setPosition(127.f, player.sprite.getPosition().y);
@@ -276,7 +278,7 @@ int main()
 				{
 					speed += 0.5;
 					std::cout << speed_clock.getElapsedTime().asSeconds() << std::endl;
-					speed_clock.restart().Zero;
+					speed_clock.restart();
 					std::cout << speed_clock.getElapsedTime().asSeconds() << std::endl;
 					std::cout << "Speed increased" << std::endl;
 				}
