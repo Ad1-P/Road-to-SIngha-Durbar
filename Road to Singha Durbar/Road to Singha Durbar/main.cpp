@@ -241,7 +241,7 @@ int main()
 		if (player.HP > 0 && Run && !gamecomplete)
 		{
 			//game completion check
-			if (time.getElapsedTime().asSeconds() >= 69)
+			if (time.getElapsedTime().asSeconds() >= 9)
 			{
 				gamecomplete = true;
 				std::cout << "Game complete" << std::endl;
